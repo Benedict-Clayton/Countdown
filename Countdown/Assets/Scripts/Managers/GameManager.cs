@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public void StartRound()
     {
         float target = roundManager.GenerateTarget();
+        Debug.Log("Target Time: " + target);
 
         // Yell at UI to show stuff.
 
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Stopped Time: " + stoppedTime.ToString("F2"));
         Debug.Log("Target Time: " + targetTime.ToString("F2"));
         Debug.Log("Error: " + error.ToString("F2"));
+        scoreManager.GetResult(error);
 
         currentState = State.Results;
     }

@@ -9,6 +9,8 @@ public class CountdownTimer : MonoBehaviour
 
     private bool running;
 
+    private float debugTimer;
+
     private void Update()
     {
         if (!running)
@@ -17,8 +19,15 @@ public class CountdownTimer : MonoBehaviour
         }
 
         CurrentTime -= Time.deltaTime;
+        debugTimer -= Time.deltaTime;
 
-        Debug.Log("Time Remaining: " + currentTime.ToString("F2"));
+        if (debugTimer <= 0)
+        {
+            Debug.Log("Time Remaining: " + CurrentTime.ToString("F2"));
+            debugTimer = 1f;
+        }
+
+        // Debug.Log("Time Remaining: " + currentTime.ToString("F2"));
     }
 
 

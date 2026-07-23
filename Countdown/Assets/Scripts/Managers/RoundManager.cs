@@ -28,7 +28,6 @@ public class RoundManager : MonoBehaviour
     public float GenerateTarget()
     {
         TargetTime = Random.Range(0.5f, 9.5f);
-
         return TargetTime;
     }
 }
