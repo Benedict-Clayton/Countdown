@@ -20,6 +20,11 @@ public class RoundManager : MonoBehaviour
 
     private float targetTime;
     public float TargetTime { get { return targetTime; } set { targetTime = value; } }
+
+    private void Awake()
+    {
+        instance = this;
+    }
     public float GenerateTarget()
     {
         TargetTime = Random.Range(0.5f, 9.5f);

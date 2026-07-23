@@ -19,10 +19,16 @@ public class ScoreManager : MonoBehaviour
     }
     private int score; 
     public int Score { get { return score; } set { score = value; } }
-    
-    
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void CalculateScore(float error) 
-    { 
-        int points = Mathf.RoundToInt(1000 - (error * 1000)); Score += Mathf.Max(points, 0); 
+    {
+        int points = Mathf.RoundToInt(1000 - (error * 1000));
+
+        score += Mathf.Max(points, 0);
     }
 }

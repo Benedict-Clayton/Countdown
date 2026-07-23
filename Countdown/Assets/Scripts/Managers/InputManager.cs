@@ -17,6 +17,12 @@ public class InputManager : MonoBehaviour
             return instance;
         }
     }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))

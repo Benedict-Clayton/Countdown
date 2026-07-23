@@ -9,7 +9,7 @@ public class CountdownTimer : MonoBehaviour
 
     private bool running;
 
-    void Update()
+    private void Update()
     {
         if (!running)
         {
@@ -17,6 +17,8 @@ public class CountdownTimer : MonoBehaviour
         }
 
         CurrentTime -= Time.deltaTime;
+
+        Debug.Log("Time Remaining: " + currentTime.ToString("F2"));
     }
 
 

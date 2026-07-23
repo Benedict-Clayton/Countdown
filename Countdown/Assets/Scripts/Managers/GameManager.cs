@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] UIManager ui;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         StartRound();
@@ -50,21 +55,27 @@ public class GameManager : MonoBehaviour
 
     public void BeginCountdown()
     {
-        timer.StartTimer(1f);
+        Debug.Log("Countdown Started");
 
         currentState = State.Countdown;
+
+        timer.StartTimer(10f);
     }
 
 
     public void StopCountdown()
     {
-        float result = timer.StopTimer();
+        float stoppedTime = timer.StopTimer();
 
-        float error = Mathf.Abs(result - roundManager.TargetTime);
+        float targetTime = roundManager.TargetTime;
 
-        scoreManager.CalculateScore(error);
+        float error = Mathf.Abs(stoppedTime - targetTime);
 
         // Yell at UI to show stuff.
+
+        Debug.Log("Stopped Time: " + stoppedTime.ToString("F2"));
+        Debug.Log("Target Time: " + targetTime.ToString("F2"));
+        Debug.Log("Error: " + error.ToString("F2"));
 
         currentState = State.Results;
     }
