@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,9 @@ public class GameManager : MonoBehaviour
         Waiting,
         Results
     }
+
+    // Events to listen to (Unfortunately not Lo-Fi)
+    public static Action<State> OnStateChanged;
 
     private State currentState = State.Waiting;
     public State CurrentState { get { return currentState; } }
@@ -57,7 +61,7 @@ public class GameManager : MonoBehaviour
         uiManager.SetInstruction("PRESS SPACE TO DRAW");
         uiManager.ClearResult();
 
-        currentState = State.Waiting;
+        ChangeState(State.Waiting);
     }
 
 
@@ -65,7 +69,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Countdown Started");
 
-        currentState = State.Countdown;
+        ChangeState(State.Countdown);
 
         uiManager.SetInstruction("DRAW!");
 
@@ -91,6 +95,13 @@ public class GameManager : MonoBehaviour
         scoreManager.GetResult(error);
         */
 
-        currentState = State.Results;
+        ChangeState(State.Results);
+    }
+
+    private void ChangeState(State newState)
+    {
+        currentState = newState;
+
+        OnStateChanged?.Invoke(currentState);
     }
 }
