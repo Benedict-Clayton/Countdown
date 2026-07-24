@@ -19,13 +19,15 @@ public class CountdownTimer : MonoBehaviour
         }
 
         CurrentTime -= Time.deltaTime;
-        debugTimer -= Time.deltaTime;
+        // debugTimer -= Time.deltaTime;
 
         if (debugTimer <= 0)
         {
             Debug.Log("Time Remaining: " + CurrentTime.ToString("F2"));
             debugTimer = 1f;
         }
+
+        UIManager.Instance.SetCountdown(CurrentTime);
 
         // Debug.Log("Time Remaining: " + currentTime.ToString("F2"));
     }

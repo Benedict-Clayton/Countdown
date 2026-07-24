@@ -33,23 +33,35 @@ public class ScoreManager : MonoBehaviour
         score += Mathf.Max(points, 0);
     }
 
-    public void GetResult(float error)
+    public string GetResult(float error)
     {
+        string result;
+
         if (error <= 0.05f)
         {
-            Debug.Log("PERFECT");
+            score += 1000;
+            result = "DEAD ON!";
         }
         else if (error <= 0.1f)
         {
-            Debug.Log("GREAT");
+            score += 1000;
+            result = "QUICK DRAW!";
         }
         else if (error <= 0.5f)
         {
-            Debug.Log("GOOD");
+            score += 500;
+            result = "HIT!";
+        }
+        else if (error <= 1f)
+        {
+            score += 250;
+            result = "GRAZED";
         }
         else
         {
-            Debug.Log("MISS");
+            result = "MISSED";
         }
+
+        return result;
     }
 }

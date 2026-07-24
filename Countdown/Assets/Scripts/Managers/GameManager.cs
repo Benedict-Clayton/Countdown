@@ -28,10 +28,11 @@ public class GameManager : MonoBehaviour
     private State currentState = State.Waiting;
     public State CurrentState { get { return currentState; } }
 
-    [SerializeField] CountdownTimer timer;
-    [SerializeField] RoundManager roundManager;
-    [SerializeField] ScoreManager scoreManager;
-    [SerializeField] UIManager ui;
+    //Manager references -----------------------------
+    [SerializeField] private CountdownTimer countdown;
+    private RoundManager roundManager;
+    private ScoreManager scoreManager;
+    private UIManager uiManager;
 
     private void Awake()
     {
@@ -40,6 +41,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        roundManager = RoundManager.Instance;
+        scoreManager = ScoreManager.Instance;
+        uiManager = UIManager.Instance;
+
         StartRound();
     }
 
@@ -48,7 +53,9 @@ public class GameManager : MonoBehaviour
         float target = roundManager.GenerateTarget();
         Debug.Log("Target Time: " + target);
 
-        // Yell at UI to show stuff.
+        uiManager.SetTarget(target);
+        uiManager.SetInstruction("PRESS SPACE TO DRAW");
+        uiManager.ClearResult();
 
         currentState = State.Waiting;
     }
@@ -60,24 +67,29 @@ public class GameManager : MonoBehaviour
 
         currentState = State.Countdown;
 
-        timer.StartTimer(10f);
+        uiManager.SetInstruction("DRAW!");
+
+        countdown.StartTimer(10f);
     }
 
 
     public void StopCountdown()
     {
-        float stoppedTime = timer.StopTimer();
+        float stoppedTime = countdown.StopTimer();
 
         float targetTime = roundManager.TargetTime;
 
         float error = Mathf.Abs(stoppedTime - targetTime);
 
-        // Yell at UI to show stuff.
+        UIManager.Instance.SetResult(scoreManager.GetResult(error));
+        UIManager.Instance.SetScore(ScoreManager.Instance.Score);
 
+        /*
         Debug.Log("Stopped Time: " + stoppedTime.ToString("F2"));
         Debug.Log("Target Time: " + targetTime.ToString("F2"));
         Debug.Log("Error: " + error.ToString("F2"));
         scoreManager.GetResult(error);
+        */
 
         currentState = State.Results;
     }
