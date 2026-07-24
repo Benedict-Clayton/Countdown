@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static DamageManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,8 +36,9 @@ public class GameManager : MonoBehaviour
     //Manager references -----------------------------
     [SerializeField] private CountdownTimer countdown;
     private RoundManager roundManager;
-    private ScoreManager scoreManager;
+    private DamageManager damageManager;
     private UIManager uiManager;
+    private EnemyManager enemyManager;
 
     private void Awake()
     {
@@ -46,8 +48,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         roundManager = RoundManager.Instance;
-        scoreManager = ScoreManager.Instance;
+        damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
+        enemyManager = EnemyManager.Instance;
 
         StartRound();
     }
@@ -85,15 +88,13 @@ public class GameManager : MonoBehaviour
 
         float error = Mathf.Abs(stoppedTime - targetTime);
 
-        UIManager.Instance.SetResult(scoreManager.GetResult(error));
-        UIManager.Instance.SetScore(ScoreManager.Instance.Score);
+        TimingResult result = damageManager.GetResult(error);
 
-        /*
-        Debug.Log("Stopped Time: " + stoppedTime.ToString("F2"));
-        Debug.Log("Target Time: " + targetTime.ToString("F2"));
-        Debug.Log("Error: " + error.ToString("F2"));
-        scoreManager.GetResult(error);
-        */
+        int damage = damageManager.ResolvePlayerAttack(error);
+
+        enemyManager.CurrentEnemy.TakeDamage(damage);
+
+        UIManager.Instance.SetResult(damageManager.GetResult(error).ToString());
 
         ChangeState(State.Results);
     }
