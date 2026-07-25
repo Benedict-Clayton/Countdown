@@ -99,23 +99,23 @@ public class DamageManager : MonoBehaviour
         switch (result)
         {
             case TimingResult.Perfect:
-                reduction = 5;
-                break;
-
-            case TimingResult.Great:
                 reduction = 4;
                 break;
 
-            case TimingResult.Good:
+            case TimingResult.Great:
                 reduction = 3;
                 break;
 
-            case TimingResult.Poor:
+            case TimingResult.Good:
                 reduction = 2;
                 break;
 
-            case TimingResult.Miss:
+            case TimingResult.Poor:
                 reduction = 1;
+                break;
+
+            case TimingResult.Miss:
+                reduction = 0;
                 break;
         }
 

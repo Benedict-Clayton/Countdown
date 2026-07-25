@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        ability?.OnRemove();
         OnEnemyDeath?.Invoke(this);
-        Debug.Log(enemyData.enemyName + " defeated!");
     }
 }

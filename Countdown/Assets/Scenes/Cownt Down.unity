@@ -1619,10 +1619,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countdown: {fileID: 749357881}
   levelEncounters:
+  - {fileID: 11400000, guid: 4be2cb1a83e0bcd4f886489b61d8596e, type: 2}
   - {fileID: 11400000, guid: 8cc8a7eec82822348b19ae554ed4ac97, type: 2}
   - {fileID: 11400000, guid: 6f73443666ef27b41afd874842b83d15, type: 2}
   - {fileID: 11400000, guid: 9511a8fe04bd1094c8b3e684e669d782, type: 2}
-  - {fileID: 11400000, guid: 4be2cb1a83e0bcd4f886489b61d8596e, type: 2}
   - {fileID: 11400000, guid: 65b0315f70d939845bc5d52b9b0b5757, type: 2}
 --- !u!1 &879118883
 GameObject:

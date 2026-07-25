@@ -12,9 +12,20 @@ public class HiddenTimer : EnemyAbility
         GameManager.OnStateChanged -= HandleStateChanged;
     }
 
+    private void OnDestroy()
+    {
+        GameManager.OnStateChanged -= HandleStateChanged;
+    }
+
+    public override void OnRemove()
+    {
+        GameManager.OnStateChanged -= HandleStateChanged;
+
+        UIManager.Instance.CountdownText.gameObject.SetActive(true);
+    }
+
     private void HandleStateChanged(GameManager.State state)
     {
-        Debug.Log("Why");
         switch (state)
         {
             case GameManager.State.Countdown:
