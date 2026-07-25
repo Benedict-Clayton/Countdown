@@ -41,7 +41,7 @@ public class DamageManager : MonoBehaviour
         {
             return TimingResult.Perfect;
         }
-        else if (error <= 0.1f)
+        else if (error <= 0.2f)
         {
             return TimingResult.Great;
         }
@@ -136,7 +136,7 @@ public class DamageManager : MonoBehaviour
                 return "HIT!";
 
             case TimingResult.Poor:
-                return "GRAZED";
+                return Random.value < 0.25f ? "GRAZING - yummy grass" : "GRAZED";
 
             default:
                 return "MISSED";

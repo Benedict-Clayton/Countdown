@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2bbfd2c57e65cf4fa0900fed6c7db54, type: 3}
+  m_Name: Slo-Moo
+  m_EditorClassIdentifier: 
+  enemyName: Slo-Moo
+  enemyArt: {fileID: 21300000, guid: e71cde99348092c4396d6e9e515edb33, type: 3}
+  maxHealth: 6
+  damage: 4
+  ability: {fileID: -3834615419052264047, guid: 43fda58142e14f34a90035cbcfe488b0, type: 3}
+  abilityDescription: 'Slooow: Timer is slowed down.'

@@ -9,7 +9,13 @@ public class CountdownTimer : MonoBehaviour
 
     private bool running;
 
-    private float debugTimer;
+    private float timeMultiplier = 1f;
+
+    public float TimeMultiplier
+    {
+        get { return timeMultiplier; }
+        set { timeMultiplier = value; }
+    }
 
     private void Update()
     {
@@ -18,14 +24,7 @@ public class CountdownTimer : MonoBehaviour
             return;
         }
 
-        CurrentTime -= Time.deltaTime;
-        // debugTimer -= Time.deltaTime;
-
-        if (debugTimer <= 0)
-        {
-            Debug.Log("Time Remaining: " + CurrentTime.ToString("F2"));
-            debugTimer = 1f;
-        }
+        CurrentTime -= Time.deltaTime * timeMultiplier;
 
         UIManager.Instance.SetCountdown(CurrentTime);
 

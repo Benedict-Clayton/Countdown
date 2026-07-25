@@ -1,29 +1,35 @@
 using UnityEngine;
 
-public class HiddenTimer : EnemyAbility
+public class SlowTimer : EnemyAbility
 {
+    [SerializeField] private float slowAmount = 0.63f; // MUAHAHAHAH ITS NOT AN EVEN NUMBER! NO COUNTING!
+    private CountdownTimer timer;
+
+    
     public override void OnSpawn(Enemy enemy)
     {
         GameManager.OnStateChanged += HandleStateChanged;
+        timer = FindObjectOfType<CountdownTimer>();
     }
 
     private void OnDisable()
     {
+        timer.TimeMultiplier = 1f;
         GameManager.OnStateChanged -= HandleStateChanged;
     }
 
     private void HandleStateChanged(GameManager.State state)
     {
-        Debug.Log("Why");
         switch (state)
         {
             case GameManager.State.Countdown:
-                UIManager.Instance.CountdownText.gameObject.SetActive(false);
+                
+                timer.TimeMultiplier = slowAmount;
                 break;
 
             case GameManager.State.Waiting:
             case GameManager.State.Results:
-                UIManager.Instance.CountdownText.gameObject.SetActive(true);
+                timer.TimeMultiplier = 1f;
                 break;
         }
     }
