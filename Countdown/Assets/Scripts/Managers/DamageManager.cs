@@ -83,9 +83,9 @@ public class DamageManager : MonoBehaviour
 
         int damage = GetAttackDamage(result);
 
-        EnemyManager.Instance.CurrentEnemy.ResolveCombatResult(result);
-
         EnemyManager.Instance.CurrentEnemy.TakeDamage(damage);
+
+        EnemyManager.Instance.CurrentEnemy.ResolveCombatResult(result);
 
         UIManager.Instance.SetResult(AttackResultToString(result));
     }

@@ -102,6 +102,16 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        TakeDamage(damage, false);
+    }
+
+    public void TakeDamage(int damage, bool bypassAbility)
+    {
+        if (!bypassAbility)
+        {
+            ability?.OnTakeDamage(this, ref damage);
+        }
+
         currentHealth -= damage;
 
         currentHealth = Mathf.Max(currentHealth, 0);
