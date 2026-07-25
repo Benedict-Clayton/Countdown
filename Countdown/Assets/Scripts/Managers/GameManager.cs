@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static DamageManager;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class GameManager : MonoBehaviour
 {
@@ -49,6 +50,10 @@ public class GameManager : MonoBehaviour
     private DamageManager damageManager;
     private UIManager uiManager;
 
+    // Temp stuff while we don't have a levelManager.
+    private int currentLevel;
+    [SerializeField] private List<EncounterData> levelEncounters;
+
     private void Awake()
     {
         instance = this;
@@ -56,11 +61,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        roundManager = RoundManager.Instance;
-        damageManager = DamageManager.Instance;
-        uiManager = UIManager.Instance;
-
+        roundManager = RoundManager.Instance; // Takes care of randomizing time.
+        damageManager = DamageManager.Instance; //Takes care of calculating damage.
+        uiManager = UIManager.Instance; // UI.
+        StartLevel(currentLevel);
         StartRound();
+    }
+
+    public void StartLevel(int level)
+    {
+        EnemyManager.Instance.StartEncounter(levelEncounters[currentLevel].enemies);
     }
 
     public void StartRound()
@@ -98,7 +108,7 @@ public class GameManager : MonoBehaviour
             uiManager.SetInstruction("DODGE!");
         }
 
-        countdown.StartTimer(10f);
+        countdown.StartTimer(6f);
     }
 
 
@@ -121,13 +131,6 @@ public class GameManager : MonoBehaviour
 
         NextPhase();
     }
-
-    /*
-    public void FinishResults()
-    {
-        NextPhase();
-    }
-    */
 
     private void NextPhase()
     {
@@ -158,5 +161,12 @@ public class GameManager : MonoBehaviour
         currentState = newState;
 
         OnStateChanged?.Invoke(currentState);
+    }
+
+    public void NextLevel()
+    {
+        // Called by EnemyManager when the whole encounter is finished
+        currentLevel++;
+        StartLevel(currentLevel);
     }
 }

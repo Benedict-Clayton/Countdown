@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -29,6 +30,8 @@ public class Enemy : MonoBehaviour
 
     private EnemyAbility ability;
     public EnemyAbility Ability => ability;
+
+    public event Action<Enemy> OnEnemyDeath;
 
     public void Setup(EnemyData data)
     {
@@ -130,6 +133,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        OnEnemyDeath?.Invoke(this);
         Debug.Log(enemyData.enemyName + " defeated!");
     }
 }

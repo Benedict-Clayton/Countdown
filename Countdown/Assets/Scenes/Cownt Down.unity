@@ -437,8 +437,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: -244339934649660938, guid: 805f1c287d4e8ed46bdb7637382ba05c, type: 3}
   enemyPanel: {fileID: 1627361223}
-  enemies:
-  - {fileID: 11400000, guid: ebe32962e40bc3146a68a879cd927892, type: 2}
 --- !u!1 &129167326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1619,6 +1617,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdown: {fileID: 749357881}
+  levelEncounters:
+  - {fileID: 11400000, guid: 8cc8a7eec82822348b19ae554ed4ac97, type: 2}
+  - {fileID: 11400000, guid: 6f73443666ef27b41afd874842b83d15, type: 2}
 --- !u!1 &879118883
 GameObject:
   m_ObjectHideFlags: 0
@@ -7206,7 +7207,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10.00
+  m_text: 6.00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf54136cc843a5749a1ea01363578101, type: 2}
   m_sharedMaterial: {fileID: 2279766951399472588, guid: cf54136cc843a5749a1ea01363578101, type: 2}

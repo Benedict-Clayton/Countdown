@@ -20,7 +20,9 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private Enemy enemyPrefab;
     [SerializeField] private Transform enemyPanel;
-    [SerializeField] private EnemyData[] enemies;
+    private List<EnemyData> encounterEnemies = new List<EnemyData>();
+
+    private int currentEnemyIndex;
 
     private Enemy currentEnemy;
 
@@ -31,20 +33,44 @@ public class EnemyManager : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
+    public void StartEncounter(List<EnemyData> enemies)
     {
-        SpawnEnemy();
+        encounterEnemies = enemies;
+
+        currentEnemyIndex = 0;
+
+        SpawnNextEnemy();
     }
 
-    public void SpawnEnemy()
+    public void SpawnNextEnemy()
     {
-        EnemyData selectedEnemy = enemies[Random.Range(0, enemies.Length)];
-
+        if (currentEnemyIndex >= encounterEnemies.Count)
+        {
+            CompleteEncounter();
+            return;
+        }
+        EnemyData selectedEnemy = encounterEnemies[currentEnemyIndex];
+        currentEnemyIndex++;
         currentEnemy = Instantiate(enemyPrefab, enemyPanel);
-
         currentEnemy.Setup(selectedEnemy);
-
+        currentEnemy.OnEnemyDeath += HandleEnemyDeath;
         Debug.Log("Spawned " + selectedEnemy.enemyName);
+    }
+
+    private void HandleEnemyDeath(Enemy enemy)
+    {
+        Debug.Log(enemy.EnemyData.enemyName + " defeated!");
+        enemy.OnEnemyDeath -= HandleEnemyDeath;
+        Destroy(enemy.gameObject);
+        currentEnemy = null;
+
+        SpawnNextEnemy();
+    }
+
+    private void CompleteEncounter()
+    {
+        Debug.Log("Encounter Complete!");
+        GameManager.Instance.NextLevel();
     }
 
 }
