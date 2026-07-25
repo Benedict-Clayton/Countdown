@@ -83,6 +83,8 @@ public class DamageManager : MonoBehaviour
 
         int damage = GetAttackDamage(result);
 
+        EnemyManager.Instance.CurrentEnemy.ResolveCombatResult(result);
+
         EnemyManager.Instance.CurrentEnemy.TakeDamage(damage);
 
         UIManager.Instance.SetResult(AttackResultToString(result));
@@ -117,6 +119,7 @@ public class DamageManager : MonoBehaviour
                 break;
         }
 
+        EnemyManager.Instance.CurrentEnemy.ResolveCombatResult(result);
         UIManager.Instance.SetResult(DefenseResultToString(result));
 
         return reduction;
@@ -127,19 +130,19 @@ public class DamageManager : MonoBehaviour
         switch (result)
         {
             case TimingResult.Perfect:
-                return "PERFECTLY DRAWN!";
+                return "PERFECT!";
 
             case TimingResult.Great:
-                return "GOOD HIT!";
+                return "GREAT!";
 
             case TimingResult.Good:
-                return "HIT!";
+                return "Good!";
 
             case TimingResult.Poor:
-                return Random.value < 0.25f ? "GRAZING - yummy grass" : "GRAZED";
+                return Random.value < 0.25f ? "GRAZING - yummy grass" : "Grazed";
 
             default:
-                return "MISSED";
+                return "Missed!";
         }
     }
 
@@ -148,19 +151,19 @@ public class DamageManager : MonoBehaviour
         switch (result)
         {
             case TimingResult.Perfect:
-                return "PERFECTLY DRAWN!";
+                return "PERFECT!";
 
             case TimingResult.Great:
-                return "NARROW ESCAPE!";
+                return "GREAT!";
 
             case TimingResult.Good:
-                return "DODGED!";
+                return "Good!";
 
             case TimingResult.Poor:
-                return "SCRAPED!";
+                return "Decent";
 
             default:
-                return "HIT!";
+                return "Fail";
         }
     }
 

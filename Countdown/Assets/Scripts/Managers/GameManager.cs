@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
 
         uiManager.SetTarget(target);
         uiManager.ClearResult();
+        uiManager.SetCountdown(countdown.startingTime);
 
         if (currentPhase == CombatPhase.Player)
         {

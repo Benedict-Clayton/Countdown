@@ -17,4 +17,7 @@ public abstract class EnemyAbility : MonoBehaviour
     public virtual void OnDefend(Enemy enemy) 
     { 
     }
+    public virtual void OnCombatResult(Enemy enemy, DamageManager.TimingResult result)
+    {
+    }
 }

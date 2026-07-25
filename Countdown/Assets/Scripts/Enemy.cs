@@ -131,6 +131,11 @@ public class Enemy : MonoBehaviour
         return enemyData.damage;
     }
 
+    public void ResolveCombatResult(DamageManager.TimingResult result)
+    {
+        ability?.OnCombatResult(this, result);
+    }
+
     private void Die()
     {
         OnEnemyDeath?.Invoke(this);

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CountdownTimer : MonoBehaviour
 {
+    [SerializeField] public float startingTime = 6f;
     private float currentTime; 
     public float CurrentTime { get { return currentTime; } set { currentTime = value; } }
 

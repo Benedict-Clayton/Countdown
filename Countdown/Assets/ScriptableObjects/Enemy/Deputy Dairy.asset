@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2bbfd2c57e65cf4fa0900fed6c7db54, type: 3}
+  m_Name: Deputy Dairy
+  m_EditorClassIdentifier: 
+  enemyName: Deputy Dairy
+  enemyArt: {fileID: 21300000, guid: e1e83ac5511eeee44b5e7b422cfb8a90, type: 3}
+  maxHealth: 4
+  damage: 2
+  ability: {fileID: -3476444074914382075, guid: 0ba709237036f6f4fac406ffc85c5a83, type: 3}
+  abilityDescription: 'No Moostakes: When you Miss, you take 1 damage.'

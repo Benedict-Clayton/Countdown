@@ -42,8 +42,6 @@ public class UIManager : MonoBehaviour
     {
         countdownText.text = currentTime.ToString("F2");
     }
-
-
     public void SetResult(string result)
     {
         resultText.text = result;
