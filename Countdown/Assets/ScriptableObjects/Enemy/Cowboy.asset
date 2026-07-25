@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2bbfd2c57e65cf4fa0900fed6c7db54, type: 3}
-  m_Name: Snake
+  m_Name: Cowboy
   m_EditorClassIdentifier: 
-  enemyName: Snake
-  maxHealth: 3
+  enemyName: Cowboy
+  enemyArt: {fileID: 21300000, guid: 1ab77f7978553f54785efdddf38ffb2c, type: 3}
+  maxHealth: 5
   damage: 2
   ability: {fileID: 2835985746306430514, guid: 2469e06346691574eb3c5d25234ac525, type: 3}
-  abilityDescription: 'Mundane: Just a normal snake.'
+  abilityDescription: 'Mundane: Moooooo.'

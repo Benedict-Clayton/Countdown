@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
+using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +17,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private TMP_Text enemyName;
     [SerializeField] private TMP_Text enemyAbility;
     [SerializeField] private GameObject[] hpStars;
+    [SerializeField] private Image art;
 
     [Header("Sprites")]
     [SerializeField] private Sprite fullStar;
@@ -24,13 +27,20 @@ public class Enemy : MonoBehaviour
     public EnemyData EnemyData => enemyData;
     public int CurrentHealth => currentHealth;
 
+    private EnemyAbility ability;
+    public EnemyAbility Ability => ability;
+
     public void Setup(EnemyData data)
     {
         enemyData = data;
         currentHealth = data.maxHealth;
+        ability = data.ability;
+        art.sprite = data.enemyArt;
 
         enemyName.text = data.enemyName;
         enemyAbility.text = data.abilityDescription;
+        
+        ability?.OnSpawn(this); // If theres an ability, initialize it.
         SetupHealth(currentHealth);
     }
 
@@ -105,7 +115,10 @@ public class Enemy : MonoBehaviour
 
     public void Attack()
     {
-        // Debug.Log(enemyData.enemyName + " is attacking!");
+        if (ability != null)
+        {
+            ability.OnAttack(this);
+        }
 
         UIManager.Instance.SetInstruction(enemyData.enemyName + " is attacking!");
     }

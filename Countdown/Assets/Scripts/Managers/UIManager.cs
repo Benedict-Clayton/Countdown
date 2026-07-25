@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TMP_Text targetText;
     [SerializeField] private TMP_Text countdownText;
+    public TMP_Text CountdownText => countdownText;
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text instructionText;
@@ -63,5 +64,10 @@ public class UIManager : MonoBehaviour
     public void ClearResult()
     {
         resultText.text = "";
+    }
+
+    public void HideTimer()
+    {
+        countdownText.gameObject.SetActive(false);
     }
 }

@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 5896086075058567270}
   - component: {fileID: -244339934649660938}
   m_Layer: 0
-  m_Name: BaseEnemy
+  m_Name: SneakySnake
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,7 +595,6 @@ MonoBehaviour:
   - {fileID: 4142081620546464612}
   - {fileID: 1282191793655823215}
   - {fileID: 1898069300268374148}
-  art: {fileID: 1972494549332582855}
   fullStar: {fileID: 21300000, guid: 1636e650a81027442804b89754f527a0, type: 3}
   halfStar: {fileID: 21300000, guid: 8eb664b50682d2a45baa9a1ec9cc39e9, type: 3}
   emptyStar: {fileID: 21300000, guid: 537af5d3fefd29c4e8bfd75acc8114c1, type: 3}
@@ -937,7 +936,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5562714600532022938}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1348,7 +1347,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: If you're reading this, something has gone wrong.
+  m_text: Lorem Ipsum
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf54136cc843a5749a1ea01363578101, type: 2}
   m_sharedMaterial: {fileID: 2279766951399472588, guid: cf54136cc843a5749a1ea01363578101, type: 2}

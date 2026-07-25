@@ -438,7 +438,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: -244339934649660938, guid: 805f1c287d4e8ed46bdb7637382ba05c, type: 3}
   enemyPanel: {fileID: 1627361223}
   enemies:
-  - {fileID: 11400000, guid: a135507c32fabc74bb337e839087b7dd, type: 2}
+  - {fileID: 11400000, guid: ebe32962e40bc3146a68a879cd927892, type: 2}
 --- !u!1 &129167326
 GameObject:
   m_ObjectHideFlags: 0
