@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TMP_Text targetText;
     [SerializeField] private TMP_Text countdownText;
+    [SerializeField] private RectTransform gameOver;
     public TMP_Text CountdownText => countdownText;
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private TMP_Text scoreText;
@@ -68,4 +69,11 @@ public class UIManager : MonoBehaviour
     {
         countdownText.gameObject.SetActive(false);
     }
+
+    public void ShowVictoryScreen()
+    {
+        gameOver.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+    }
 }
+

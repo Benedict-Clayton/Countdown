@@ -70,6 +70,12 @@ public class GameManager : MonoBehaviour
 
     public void StartLevel(int level)
     {
+        if (currentLevel >= levelEncounters.Count)
+        {
+            FinishGame();
+            return;
+        }
+
         EnemyManager.Instance.StartEncounter(levelEncounters[currentLevel].enemies);
     }
 
@@ -169,5 +175,10 @@ public class GameManager : MonoBehaviour
         // Called by EnemyManager when the whole encounter is finished
         currentLevel++;
         StartLevel(currentLevel);
+    }
+
+    private void FinishGame()
+    {
+        uiManager.ShowVictoryScreen();
     }
 }

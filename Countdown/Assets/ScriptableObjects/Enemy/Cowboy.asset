@@ -17,4 +17,4 @@ MonoBehaviour:
   maxHealth: 5
   damage: 2
   ability: {fileID: 2835985746306430514, guid: 2469e06346691574eb3c5d25234ac525, type: 3}
-  abilityDescription: 'Mundane: Moooooo.'
+  abilityDescription: 'Moondane: No abilities :('

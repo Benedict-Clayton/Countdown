@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Sneaky Cow
   enemyArt: {fileID: 21300000, guid: 138c1c07cf37d73468970f0ba9c7b4f5, type: 3}
-  maxHealth: 1
+  maxHealth: 4
   damage: 3
   ability: {fileID: 3340541397597780541, guid: 8d4b2e6310d5cda45a466b890eccdb16, type: 3}
   abilityDescription: 'Sneaky: The timer is hidden.'
