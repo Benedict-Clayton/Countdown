@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Snake
   m_EditorClassIdentifier: 
   enemyName: Snake
-  description: Goon to the Danger Noodle
   maxHealth: 3
   damage: 2
+  abilityDescription: 'Chonky: Timer moves slower.'

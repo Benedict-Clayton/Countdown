@@ -72,11 +72,11 @@ public class GameManager : MonoBehaviour
 
         if (currentPhase == CombatPhase.Player)
         {
-            uiManager.SetInstruction("PRESS SPACE TO DRAW");
+            uiManager.SetInstruction("GET READY TO DRAW!");
         }
         else if (currentPhase == CombatPhase.Enemy)
         {
-            uiManager.SetInstruction("PRESS SPACE TO DODGE");
+            uiManager.SetInstruction("GET READY TO DODGE!");
         }
 
         ChangeState(State.Waiting);
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            damageManager.ResolvePlayerDefense(error);
+            damageManager.ResolveEnemyAttack(error);
         }
 
         ChangeState(State.Results);
@@ -146,6 +146,11 @@ public class GameManager : MonoBehaviour
         currentPhase = newPhase;
 
         OnPhaseChanged?.Invoke(currentPhase);
+
+        if (currentPhase == CombatPhase.Enemy)
+        {
+            EnemyManager.Instance.CurrentEnemy.Attack();
+        }
     }
 
     private void ChangeState(State newState)

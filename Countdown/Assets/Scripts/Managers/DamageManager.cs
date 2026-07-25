@@ -85,7 +85,7 @@ public class DamageManager : MonoBehaviour
 
         EnemyManager.Instance.CurrentEnemy.TakeDamage(damage);
 
-        UIManager.Instance.SetResult(ResultToString(result));
+        UIManager.Instance.SetResult(AttackResultToString(result));
     }
 
     public int ResolvePlayerDefense(float error)
@@ -117,18 +117,20 @@ public class DamageManager : MonoBehaviour
                 break;
         }
 
+        UIManager.Instance.SetResult(DefenseResultToString(result));
+
         return reduction;
     }
 
-    private string ResultToString(TimingResult result)
+    private string AttackResultToString(TimingResult result)
     {
         switch (result)
         {
             case TimingResult.Perfect:
-                return "DEAD ON!";
+                return "PERFECTLY DRAWN!";
 
             case TimingResult.Great:
-                return "QUICK DRAW!";
+                return "GOOD HIT!";
 
             case TimingResult.Good:
                 return "HIT!";
@@ -138,6 +140,27 @@ public class DamageManager : MonoBehaviour
 
             default:
                 return "MISSED";
+        }
+    }
+
+    private string DefenseResultToString(TimingResult result)
+    {
+        switch (result)
+        {
+            case TimingResult.Perfect:
+                return "PERFECTLY DRAWN!";
+
+            case TimingResult.Great:
+                return "NARROW ESCAPE!";
+
+            case TimingResult.Good:
+                return "DODGED!";
+
+            case TimingResult.Poor:
+                return "SCRAPED!";
+
+            default:
+                return "HIT!";
         }
     }
 
@@ -152,9 +175,10 @@ public class DamageManager : MonoBehaviour
         int finalDamage = enemyDamage - reduction;
 
         finalDamage = Mathf.Max(finalDamage, 0);
+        
+        PlayerManager.Instance.TakeDamage(finalDamage);
 
-        // PlayerManager.Instance.TakeDamage(finalDamage);
 
-        UIManager.Instance.SetResult(ResultToString(result));
+        UIManager.Instance.SetResult(DefenseResultToString(result));
     }
 }

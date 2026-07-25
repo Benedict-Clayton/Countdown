@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private TMP_Text enemyName;
+    [SerializeField] private TMP_Text enemyAbility;
     [SerializeField] private GameObject[] hpStars;
 
     [Header("Sprites")]
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
         currentHealth = data.maxHealth;
 
         enemyName.text = data.enemyName;
+        enemyAbility.text = data.abilityDescription;
         SetupHealth(currentHealth);
     }
 
@@ -99,6 +101,13 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public void Attack()
+    {
+        // Debug.Log(enemyData.enemyName + " is attacking!");
+
+        UIManager.Instance.SetInstruction(enemyData.enemyName + " is attacking!");
     }
 
     public int GetAttackDamage()
