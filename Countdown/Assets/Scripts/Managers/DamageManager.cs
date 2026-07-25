@@ -40,59 +40,53 @@ public class DamageManager : MonoBehaviour
         if (error <= 0.05f)
         {
             return TimingResult.Perfect;
-            // result = "QUICK DRAW!";
         }
         else if (error <= 0.1f)
         {
             return TimingResult.Great;
-            // result = "QUICK DRAW!";
         }
         else if (error <= 0.5f)
         {
             return TimingResult.Good;
-            // result = "HIT!";
         }
         else if (error <= 1f)
         {
             return TimingResult.Poor;
-            // result = "GRAZED";
         }
 
         return TimingResult.Miss;
-        // result = "MISSED";
     }
-    public int ResolvePlayerAttack(float error)
+    private int GetAttackDamage(TimingResult result)
     {
-        TimingResult result = GetResult(error);
-
-        int damage = 0;
-
         switch (result)
         {
             case TimingResult.Perfect:
-                damage = 4;
-                break;
+                return 4;
 
             case TimingResult.Great:
-                damage = 3;
-                break;
+                return 3;
 
             case TimingResult.Good:
-                damage = 2;
-                break;
+                return 2;
 
             case TimingResult.Poor:
-                damage = 1;
-                break;
+                return 1;
 
-            case TimingResult.Miss:
-                damage = 0;
-                break;
+            default:
+                return 0;
         }
-
-        return damage;
     }
 
+    public void ResolvePlayerAttack(float error)
+    {
+        TimingResult result = GetResult(error);
+
+        int damage = GetAttackDamage(result);
+
+        EnemyManager.Instance.CurrentEnemy.TakeDamage(damage);
+
+        UIManager.Instance.SetResult(ResultToString(result));
+    }
 
     public int ResolvePlayerDefense(float error)
     {
@@ -124,5 +118,43 @@ public class DamageManager : MonoBehaviour
         }
 
         return reduction;
+    }
+
+    private string ResultToString(TimingResult result)
+    {
+        switch (result)
+        {
+            case TimingResult.Perfect:
+                return "DEAD ON!";
+
+            case TimingResult.Great:
+                return "QUICK DRAW!";
+
+            case TimingResult.Good:
+                return "HIT!";
+
+            case TimingResult.Poor:
+                return "GRAZED";
+
+            default:
+                return "MISSED";
+        }
+    }
+
+    public void ResolveEnemyAttack(float error)
+    {
+        TimingResult result = GetResult(error);
+
+        int reduction = ResolvePlayerDefense(error);
+
+        int enemyDamage = EnemyManager.Instance.CurrentEnemy.GetAttackDamage();
+
+        int finalDamage = enemyDamage - reduction;
+
+        finalDamage = Mathf.Max(finalDamage, 0);
+
+        // PlayerManager.Instance.TakeDamage(finalDamage);
+
+        UIManager.Instance.SetResult(ResultToString(result));
     }
 }

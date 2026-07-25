@@ -46,4 +46,5 @@ public class EnemyManager : MonoBehaviour
 
         Debug.Log("Spawned " + selectedEnemy.enemyName);
     }
+
 }

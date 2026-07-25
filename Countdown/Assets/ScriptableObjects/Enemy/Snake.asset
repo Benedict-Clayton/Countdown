@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Snake
   description: Goon to the Danger Noodle
-  maxHealth: 1
+  maxHealth: 3
   damage: 2

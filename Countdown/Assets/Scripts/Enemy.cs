@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Sprites")]
     [SerializeField] private Sprite fullStar;
+    [SerializeField] private Sprite halfStar;
     [SerializeField] private Sprite emptyStar;
 
     public EnemyData EnemyData => enemyData;
@@ -33,12 +34,30 @@ public class Enemy : MonoBehaviour
 
     public void SetupHealth(int currentHealth)
     {
+        int starsNeeded = Mathf.CeilToInt(currentHealth / 2f);
+
         for (int i = 0; i < hpStars.Length; i++)
         {
-            if (i < currentHealth)
+            if (i < starsNeeded)
             {
                 hpStars[i].SetActive(true);
-                hpStars[i].GetComponent<Image>().sprite = fullStar;
+
+                Image starImage = hpStars[i].GetComponent<Image>();
+
+                int starHealth = currentHealth - (i * 2);
+
+                if (starHealth >= 2)
+                {
+                    starImage.sprite = fullStar;
+                }
+                else
+                {
+                    starImage.sprite = halfStar;
+                }
+            }
+            else
+            {
+                hpStars[i].SetActive(false);
             }
         }
     }
@@ -47,13 +66,21 @@ public class Enemy : MonoBehaviour
     {
         for (int i = 0; i < hpStars.Length; i++)
         {
-            if (i < currentHealth)
+            int starHealth = currentHealth - (i * 2);
+
+            Image starImage = hpStars[i].GetComponent<Image>();
+
+            if (starHealth >= 2)
             {
-                hpStars[i].GetComponent<Image>().sprite = fullStar;
+                starImage.sprite = fullStar;
+            }
+            else if (starHealth == 1)
+            {
+                starImage.sprite = halfStar;
             }
             else
             {
-                hpStars[i].GetComponent<Image>().sprite = emptyStar;
+                starImage.sprite = emptyStar;
             }
         }
     }
@@ -61,6 +88,8 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+
+        currentHealth = Mathf.Max(currentHealth, 0);
 
         UpdateHealth(currentHealth);
 
@@ -70,6 +99,11 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public int GetAttackDamage()
+    {
+        return enemyData.damage;
     }
 
     private void Die()

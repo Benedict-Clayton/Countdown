@@ -28,17 +28,26 @@ public class GameManager : MonoBehaviour
     }
 
     // Events to listen to (Unfortunately not Lo-Fi)
-    public static Action<State> OnStateChanged;
+    public static Action<State> OnStateChanged; // What state the game is in timing wised.
+    public static Action<CombatPhase> OnPhaseChanged; // Swap from player to enemy turn
 
     private State currentState = State.Waiting;
     public State CurrentState { get { return currentState; } }
+
+    public enum CombatPhase
+    {
+        Player,
+        Enemy
+    }
+
+    private CombatPhase currentPhase = CombatPhase.Player;
+    public CombatPhase CurrentPhase => currentPhase;
 
     //Manager references -----------------------------
     [SerializeField] private CountdownTimer countdown;
     private RoundManager roundManager;
     private DamageManager damageManager;
     private UIManager uiManager;
-    private EnemyManager enemyManager;
 
     private void Awake()
     {
@@ -50,7 +59,6 @@ public class GameManager : MonoBehaviour
         roundManager = RoundManager.Instance;
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
-        enemyManager = EnemyManager.Instance;
 
         StartRound();
     }
@@ -58,11 +66,18 @@ public class GameManager : MonoBehaviour
     public void StartRound()
     {
         float target = roundManager.GenerateTarget();
-        Debug.Log("Target Time: " + target);
 
         uiManager.SetTarget(target);
-        uiManager.SetInstruction("PRESS SPACE TO DRAW");
         uiManager.ClearResult();
+
+        if (currentPhase == CombatPhase.Player)
+        {
+            uiManager.SetInstruction("PRESS SPACE TO DRAW");
+        }
+        else if (currentPhase == CombatPhase.Enemy)
+        {
+            uiManager.SetInstruction("PRESS SPACE TO DODGE");
+        }
 
         ChangeState(State.Waiting);
     }
@@ -74,7 +89,14 @@ public class GameManager : MonoBehaviour
 
         ChangeState(State.Countdown);
 
-        uiManager.SetInstruction("DRAW!");
+        if (currentPhase == CombatPhase.Player)
+        {
+            uiManager.SetInstruction("DRAW!");
+        }
+        else
+        {
+            uiManager.SetInstruction("DODGE!");
+        }
 
         countdown.StartTimer(10f);
     }
@@ -84,19 +106,46 @@ public class GameManager : MonoBehaviour
     {
         float stoppedTime = countdown.StopTimer();
 
-        float targetTime = roundManager.TargetTime;
+        float error = Mathf.Abs(stoppedTime - roundManager.TargetTime);
 
-        float error = Mathf.Abs(stoppedTime - targetTime);
-
-        TimingResult result = damageManager.GetResult(error);
-
-        int damage = damageManager.ResolvePlayerAttack(error);
-
-        enemyManager.CurrentEnemy.TakeDamage(damage);
-
-        UIManager.Instance.SetResult(damageManager.GetResult(error).ToString());
+        if (currentPhase == CombatPhase.Player)
+        {
+            damageManager.ResolvePlayerAttack(error);
+        }
+        else
+        {
+            damageManager.ResolvePlayerDefense(error);
+        }
 
         ChangeState(State.Results);
+
+        NextPhase();
+    }
+
+    /*
+    public void FinishResults()
+    {
+        NextPhase();
+    }
+    */
+
+    private void NextPhase()
+    {
+        if (currentPhase == CombatPhase.Player)
+        {
+            ChangePhase(CombatPhase.Enemy);
+        }
+        else if (currentPhase == CombatPhase.Enemy)
+        {
+            ChangePhase(CombatPhase.Player);
+        }
+    }
+
+    private void ChangePhase(CombatPhase newPhase)
+    {
+        currentPhase = newPhase;
+
+        OnPhaseChanged?.Invoke(currentPhase);
     }
 
     private void ChangeState(State newState)

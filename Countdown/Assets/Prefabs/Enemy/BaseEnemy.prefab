@@ -384,6 +384,7 @@ MonoBehaviour:
   - {fileID: 1282191793655823215}
   - {fileID: 1898069300268374148}
   fullStar: {fileID: 21300000, guid: 1636e650a81027442804b89754f527a0, type: 3}
+  halfStar: {fileID: 21300000, guid: 8eb664b50682d2a45baa9a1ec9cc39e9, type: 3}
   emptyStar: {fileID: 21300000, guid: 537af5d3fefd29c4e8bfd75acc8114c1, type: 3}
 --- !u!1 &3253128081410282277
 GameObject:
