@@ -63,7 +63,6 @@ public class EnemyManager : MonoBehaviour
         enemy.OnEnemyDeath -= HandleEnemyDeath;
         currentEnemy = null;
         Destroy(enemy.gameObject);
-
         SpawnNextEnemy();
     }
 

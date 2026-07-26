@@ -12,6 +12,7 @@ public abstract class EnemyAbility : MonoBehaviour
 
     public virtual void OnRemove()
     {
+
     }
 
     public virtual void OnTakeDamage(Enemy enemy, ref int damage) 

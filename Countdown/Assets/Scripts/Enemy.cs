@@ -30,7 +30,10 @@ public class Enemy : MonoBehaviour
 
     public event Action<Enemy> OnEnemyDeath;
     
+    // Animation stuff
     private Coroutine flashCoroutine;
+    private Coroutine spawnCoroutine;
+    private Coroutine deathCoroutine;
 
     public void Setup(EnemyData data)
     {
@@ -43,6 +46,7 @@ public class Enemy : MonoBehaviour
         enemyAbility.text = data.abilityDescription;
         
         ability?.OnSpawn(this); // If theres an ability, initialize it.
+        spawnCoroutine = StartCoroutine(SpawnAnimation());
         SetupHealth(currentHealth);
     }
 
@@ -149,7 +153,67 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if (deathCoroutine != null)
+        {
+            StopCoroutine(deathCoroutine);
+        }
+
         ability?.OnRemove();
+        deathCoroutine = StartCoroutine(DeathAnimation());
+    }
+
+    #region Animations
+
+    private IEnumerator SpawnAnimation()
+    {
+        Vector3 targetPosition = transform.localPosition;
+        Vector3 startPosition = targetPosition + new Vector3(400, 0, 0);
+        transform.localPosition = startPosition;
+
+        float duration = 3f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+
+            // Come here often?
+            transform.localPosition = Vector3.Lerp(startPosition, targetPosition, t);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localPosition = targetPosition;
+    }
+
+    private IEnumerator DeathAnimation()
+    {
+        Debug.Log("Start");
+        float duration = 2f;
+        float elapsed = 0f;
+
+        Quaternion startRotation = transform.rotation;
+        Quaternion endRotation = Quaternion.Euler(0, 0, 90);
+
+        Vector3 startScale = transform.localScale;
+        Vector3 endScale = Vector3.zero;
+
+        Vector3 startPosition = transform.localPosition;
+        Vector3 endPosition = startPosition + new Vector3(0, -400, 0);
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+
+            transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
+            transform.localScale = Vector3.Lerp(startScale, endScale, t);
+            transform.localPosition = Vector3.Lerp(startPosition, endPosition, t);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
         OnEnemyDeath?.Invoke(this);
     }
 
@@ -195,4 +259,5 @@ public class Enemy : MonoBehaviour
                 return 0f;
         }
     }
+    #endregion Animations
 }

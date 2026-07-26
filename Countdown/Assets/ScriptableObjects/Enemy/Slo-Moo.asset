@@ -15,6 +15,6 @@ MonoBehaviour:
   enemyName: Slo-Moo
   enemyArt: {fileID: 21300000, guid: e71cde99348092c4396d6e9e515edb33, type: 3}
   maxHealth: 6
-  damage: 4
+  damage: 3
   ability: {fileID: -3834615419052264047, guid: 43fda58142e14f34a90035cbcfe488b0, type: 3}
   abilityDescription: 'Slooow: Timer is slowed down.'
