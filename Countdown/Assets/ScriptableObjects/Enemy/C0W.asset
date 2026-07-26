@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2bbfd2c57e65cf4fa0900fed6c7db54, type: 3}
-  m_Name: Moo-nipulator
+  m_Name: C0W
   m_EditorClassIdentifier: 
-  enemyName: Moo-nipulator
-  enemyArt: {fileID: 21300000, guid: ea236f78040689f479123cfce9cbb6fa, type: 3}
+  enemyName: C0W
+  enemyArt: {fileID: 21300000, guid: 3128883890631c543811b9716eb2beba, type: 3}
   maxHealth: 6
-  damage: 4
-  ability: {fileID: -2190225178189704964, guid: bbe8202f4ef2a51439a9d2c469f4fefa, type: 3}
-  abilityDescription: 'Moo-smerized: Timer is rotating.'
+  damage: 3
+  ability: {fileID: 8813218005651027590, guid: d264bbe2e08acb94a888ba9ed058c777, type: 3}
+  abilityDescription: '0xM00: Timer is in binary.'

@@ -1,35 +1,38 @@
 using UnityEngine;
+using System;
 
-public class SlowTimer : EnemyAbility
+public class BinaryTimer : EnemyAbility
 {
-    [SerializeField] private float slowAmount = 0.63f; // MUAHAHAHAH ITS NOT AN EVEN NUMBER! NO COUNTING!
     private CountdownTimer timer;
+    private UIManager uiManager;
 
-    
     public override void OnSpawn(Enemy enemy)
     {
-        GameManager.OnStateChanged += HandleStateChanged;
         timer = FindObjectOfType<CountdownTimer>();
+        uiManager = FindObjectOfType<UIManager>();
+        GameManager.OnStateChanged += HandleStateChanged;
     }
 
     public override void OnRemove()
     {
-        timer.TimeMultiplier = 1f;
+        timer.BinaryMode = false;
+        uiManager.SetCountdown(timer.CurrentTime);
         GameManager.OnStateChanged -= HandleStateChanged;
     }
+
 
     private void HandleStateChanged(GameManager.State state)
     {
         switch (state)
         {
             case GameManager.State.Countdown:
-                
-                timer.TimeMultiplier = slowAmount;
+                timer.BinaryMode = true;
                 break;
 
             case GameManager.State.Waiting:
             case GameManager.State.Results:
-                timer.TimeMultiplier = 1f;
+                timer.BinaryMode = false;
+                uiManager.SetCountdown(timer.CurrentTime);
                 break;
         }
     }

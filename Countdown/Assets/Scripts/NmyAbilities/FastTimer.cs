@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class SlowTimer : EnemyAbility
+public class FastTimer : EnemyAbility
 {
-    [SerializeField] private float slowAmount = 0.63f; // MUAHAHAHAH ITS NOT AN EVEN NUMBER! NO COUNTING!
+    [SerializeField] private float speedAmount = 1.63f; // MUAHAHAHAH ITS NOT AN EVEN NUMBER! NO COUNTING!
     private CountdownTimer timer;
 
-    
+
     public override void OnSpawn(Enemy enemy)
     {
         GameManager.OnStateChanged += HandleStateChanged;
         timer = FindObjectOfType<CountdownTimer>();
     }
 
-    public override void OnRemove()
+    private void OnDisable()
     {
         timer.TimeMultiplier = 1f;
         GameManager.OnStateChanged -= HandleStateChanged;
@@ -23,8 +23,8 @@ public class SlowTimer : EnemyAbility
         switch (state)
         {
             case GameManager.State.Countdown:
-                
-                timer.TimeMultiplier = slowAmount;
+
+                timer.TimeMultiplier = speedAmount;
                 break;
 
             case GameManager.State.Waiting:

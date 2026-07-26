@@ -1,6 +1,7 @@
-using TMPro;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -38,6 +39,10 @@ public class UIManager : MonoBehaviour
         targetText.text = targetTime.ToString("F2");
     }
 
+    public void SetBinaryCountdown(float currentTime)
+    {
+        countdownText.text = Convert.ToString(Mathf.CeilToInt(currentTime), 2);
+    }
 
     public void SetCountdown(float currentTime)
     {

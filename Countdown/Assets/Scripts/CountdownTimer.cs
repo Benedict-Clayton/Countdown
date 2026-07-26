@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,13 @@ public class CountdownTimer : MonoBehaviour
         set { timeMultiplier = value; }
     }
 
+    private bool binaryMode;
+    public bool BinaryMode
+    {
+        get { return binaryMode; }
+        set { binaryMode = value; }
+    }
+
     private void Update()
     {
         if (!running)
@@ -27,7 +35,14 @@ public class CountdownTimer : MonoBehaviour
 
         CurrentTime -= Time.deltaTime * timeMultiplier;
 
-        UIManager.Instance.SetCountdown(CurrentTime);
+        if (binaryMode)
+        {
+            UIManager.Instance.SetBinaryCountdown(CurrentTime);
+        }
+        else
+        {
+            UIManager.Instance.SetCountdown(CurrentTime);
+        }
 
         // Debug.Log("Time Remaining: " + currentTime.ToString("F2"));
     }
