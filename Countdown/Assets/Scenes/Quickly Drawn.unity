@@ -1796,6 +1796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countdown: {fileID: 749357881}
   levelEncounters:
+  - {fileID: 11400000, guid: b24a0c82631a5bf4fa4443a1d52683ef, type: 2}
   - {fileID: 11400000, guid: 8cc8a7eec82822348b19ae554ed4ac97, type: 2}
   - {fileID: 11400000, guid: 6f73443666ef27b41afd874842b83d15, type: 2}
   - {fileID: 11400000, guid: 9511a8fe04bd1094c8b3e684e669d782, type: 2}
@@ -2209,7 +2210,7 @@ MonoBehaviour:
   m_fontSizeMin: 0
   m_fontSizeMax: 0
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
