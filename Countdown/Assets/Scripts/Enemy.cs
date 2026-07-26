@@ -170,7 +170,7 @@ public class Enemy : MonoBehaviour
         Vector3 startPosition = targetPosition + new Vector3(400, 0, 0);
         transform.localPosition = startPosition;
 
-        float duration = 3f;
+        float duration = 2f;
         float elapsed = 0f;
 
         while (elapsed < duration)
