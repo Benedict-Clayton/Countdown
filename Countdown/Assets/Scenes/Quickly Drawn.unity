@@ -314,7 +314,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: QUICKLY DRAWN
+  m_text: GAME OVER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0ee8277fdef72c48b0649cd7ccc3d84, type: 2}
   m_sharedMaterial: {fileID: -8772230350536134153, guid: b0ee8277fdef72c48b0649cd7ccc3d84, type: 2}

@@ -105,6 +105,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Die()
     {
+        UIManager.Instance.ShowVictoryScreen();
         Debug.Log("Player defeated!");
     }
 }
