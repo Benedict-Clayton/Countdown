@@ -1,10 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.Burst.Intrinsics;
-using Unity.VisualScripting;
-using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private TMP_Text enemyAbility;
     [SerializeField] private GameObject[] hpStars;
     [SerializeField] private Image art;
+    [SerializeField] private GameObject flashOverlay;
 
     [Header("Sprites")]
     [SerializeField] private Sprite fullStar;
@@ -32,6 +29,8 @@ public class Enemy : MonoBehaviour
     public EnemyAbility Ability => ability;
 
     public event Action<Enemy> OnEnemyDeath;
+    
+    private Coroutine flashCoroutine;
 
     public void Setup(EnemyData data)
     {
@@ -120,6 +119,8 @@ public class Enemy : MonoBehaviour
 
         Debug.Log(enemyData.enemyName + " took " + damage + " damage.");
 
+        Flash(damage);
+
         if (currentHealth <= 0)
         {
             Die();
@@ -150,5 +151,48 @@ public class Enemy : MonoBehaviour
     {
         ability?.OnRemove();
         OnEnemyDeath?.Invoke(this);
+    }
+
+    private void Flash(int damage)
+    {
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+        }
+
+        flashCoroutine = StartCoroutine(FlashRoutine(GetFlashDuration(damage)));
+    }
+
+    private IEnumerator FlashRoutine(float duration)
+    {
+        if (duration <= 0)
+            yield break;
+
+        flashOverlay.SetActive(true);
+
+        yield return new WaitForSeconds(duration);
+
+        flashOverlay.SetActive(false);
+    }
+
+    private float GetFlashDuration(int damage)
+    {
+        switch (damage)
+        {
+            case 4:
+                return 0.15f; // Perfect
+
+            case 3:
+                return 0.12f; // Great
+
+            case 2:
+                return 0.08f; // Good
+
+            case 1:
+                return 0.04f; // Poor
+
+            default:
+                return 0f;
+        }
     }
 }
